@@ -1,5 +1,12 @@
 ---
-const navItems = [
+import { site } from "../data/site";
+
+type NavItem = {
+  href: string;
+  label: string;
+};
+
+const navItems: NavItem[] = [
   { href: "/", label: "Home" },
   { href: "/experience", label: "Experience" },
   { href: "/projects", label: "Projects" },
@@ -13,12 +20,12 @@ const currentPath = Astro.url.pathname;
 <header class="sticky top-0 z-50 border-b border-white/10 bg-slate-950/80 backdrop-blur">
   <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
     <a href="/" class="text-sm font-bold uppercase tracking-[0.25em] text-sky-300">
-      Dev in Japan
+      {site.brand}
     </a>
 
     <div class="hidden items-center gap-6 md:flex">
       {
-        navItems.map((item) => {
+        navItems.map((item: NavItem) => {
           const isActive =
             item.href === "/"
               ? currentPath === "/"

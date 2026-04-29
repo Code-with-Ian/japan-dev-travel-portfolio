@@ -1,9 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../data/site";
 ---
 
 <BaseLayout
-  title="Contact | Dev in Japan"
+  title={`Contact | ${site.brand}`}
   description="Contact page for collaboration, projects, and professional opportunities."
 >
   <section class="px-6 py-24">
@@ -27,15 +28,31 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         </p>
 
         <a
-          href="mailto:your.email@example.com"
+          href={`mailto:${site.email}`}
           class="mt-2 inline-block text-xl font-semibold text-sky-300 hover:text-sky-200"
         >
-          your.email@example.com
+          {site.email}
         </a>
 
-        <p class="mt-6 text-sm text-slate-500">
-          Replace this with your real email later.
-        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a
+            href={site.github}
+            target="_blank"
+            rel="noreferrer"
+            class="rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-slate-200 hover:border-sky-300 hover:text-sky-300"
+          >
+            GitHub
+          </a>
+
+          <a
+            href={site.linkedin}
+            target="_blank"
+            rel="noreferrer"
+            class="rounded-full border border-white/10 px-4 py-2 text-sm font-semibold text-slate-200 hover:border-sky-300 hover:text-sky-300"
+          >
+            LinkedIn
+          </a>
+        </div>
       </div>
     </div>
   </section>
