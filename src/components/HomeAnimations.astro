@@ -1,0 +1,148 @@
+<script>
+  function applyHomeAnimations() {
+    const animatedItems = [
+      { selector: "[data-i18n='home.eyebrow']", className: "animate-fade-up delay-100" },
+      { selector: "[data-i18n='home.hero.title']", className: "animate-fade-up delay-200" },
+      { selector: "[data-i18n='home.hero.description']", className: "animate-fade-up delay-300" },
+      { selector: "[data-i18n='home.hero.viewProjects']", className: "animate-fade-up delay-400" },
+      { selector: "[data-i18n='home.hero.exploreTravel']", className: "animate-fade-up delay-500" },
+      { selector: "[data-i18n='home.focus.kicker']", className: "animate-fade-up delay-300" },
+    ];
+
+    animatedItems.forEach((item) => {
+      document.querySelectorAll(item.selector).forEach((element) => {
+        element.classList.add(...item.className.split(" "));
+      });
+    });
+
+    document
+      .querySelectorAll(
+        "section:nth-of-type(2) .rounded-3xl, section:nth-of-type(3) .rounded-3xl, section:nth-of-type(4) .rounded-3xl, section:nth-of-type(5) .rounded-\\[2rem\\]"
+      )
+      .forEach((element) => {
+        element.classList.add("reveal-on-scroll");
+      });
+
+    document
+      .querySelectorAll("section:first-of-type .rounded-\\[2rem\\]")
+      .forEach((element) => {
+        element.classList.add("animate-soft-float");
+      });
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -80px 0px",
+      }
+    );
+
+    document.querySelectorAll(".reveal-on-scroll").forEach((element) => {
+      observer.observe(element);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", applyHomeAnimations);
+  } else {
+    applyHomeAnimations();
+  }
+</script>
+
+<style is:global>
+  .animate-fade-up {
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .delay-100 {
+    animation-delay: 0.1s;
+  }
+
+  .delay-200 {
+    animation-delay: 0.2s;
+  }
+
+  .delay-300 {
+    animation-delay: 0.3s;
+  }
+
+  .delay-400 {
+    animation-delay: 0.4s;
+  }
+
+  .delay-500 {
+    animation-delay: 0.5s;
+  }
+
+  .animate-soft-float {
+    animation: softFloat 8s ease-in-out infinite;
+  }
+
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s ease,
+      border-color 0.25s ease,
+      background-color 0.25s ease;
+  }
+
+  .reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-on-scroll:nth-child(2) {
+    transition-delay: 0.08s;
+  }
+
+  .reveal-on-scroll:nth-child(3) {
+    transition-delay: 0.16s;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes softFloat {
+    0% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-8px);
+    }
+
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-fade-up,
+    .animate-soft-float,
+    .reveal-on-scroll {
+      animation: none !important;
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>

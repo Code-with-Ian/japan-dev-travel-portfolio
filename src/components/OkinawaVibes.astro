@@ -1,7 +1,10 @@
 <div class="okinawa-vibes" aria-hidden="true">
   <div class="island-glow island-glow-1"></div>
   <div class="island-glow island-glow-2"></div>
+  <div class="tech-glow tech-glow-1"></div>
+  <div class="tech-glow tech-glow-2"></div>
 
+  <!-- Whale shark -->
   <svg
     class="sea-creature whale-shark"
     viewBox="0 0 320 140"
@@ -46,6 +49,7 @@
     />
   </svg>
 
+  <!-- Manta ray 1 -->
   <svg
     class="sea-creature manta manta-1"
     viewBox="0 0 220 120"
@@ -66,6 +70,7 @@
     />
   </svg>
 
+  <!-- Manta ray 2 -->
   <svg
     class="sea-creature manta manta-2"
     viewBox="0 0 220 120"
@@ -85,6 +90,81 @@
       opacity="0.13"
     />
   </svg>
+
+  <!-- AMR robot 1 -->
+  <svg
+    class="amr amr-1"
+    viewBox="0 0 180 120"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      x="34"
+      y="48"
+      width="92"
+      height="38"
+      rx="10"
+      fill="currentColor"
+      opacity="0.14"
+    />
+    <rect
+      x="58"
+      y="28"
+      width="42"
+      height="18"
+      rx="6"
+      fill="currentColor"
+      opacity="0.12"
+    />
+    <circle cx="54" cy="90" r="9" fill="currentColor" opacity="0.16" />
+    <circle cx="106" cy="90" r="9" fill="currentColor" opacity="0.16" />
+    <path
+      d="M126 64 H152"
+      stroke="currentColor"
+      stroke-width="4"
+      stroke-linecap="round"
+      opacity="0.16"
+    />
+    <circle cx="150" cy="64" r="8" fill="currentColor" opacity="0.14" />
+  </svg>
+
+  <!-- AMR robot 2 -->
+  <svg
+    class="amr amr-2"
+    viewBox="0 0 180 120"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      x="38"
+      y="50"
+      width="86"
+      height="34"
+      rx="10"
+      fill="currentColor"
+      opacity="0.12"
+    />
+    <rect
+      x="56"
+      y="33"
+      width="34"
+      height="14"
+      rx="5"
+      fill="currentColor"
+      opacity="0.11"
+    />
+    <circle cx="56" cy="88" r="8" fill="currentColor" opacity="0.15" />
+    <circle cx="102" cy="88" r="8" fill="currentColor" opacity="0.15" />
+    <path
+      d="M124 66 H146"
+      stroke="currentColor"
+      stroke-width="4"
+      stroke-linecap="round"
+      opacity="0.14"
+    />
+    <circle cx="144" cy="66" r="7" fill="currentColor" opacity="0.12" />
+  </svg>
+
 </div>
 
 <style>
@@ -96,11 +176,19 @@
     z-index: -1;
   }
 
-  .island-glow {
+  .island-glow,
+  .tech-glow {
     position: absolute;
     border-radius: 9999px;
     filter: blur(40px);
+  }
+
+  .island-glow {
     opacity: 0.22;
+  }
+
+  .tech-glow {
+    opacity: 0.14;
   }
 
   .island-glow-1 {
@@ -119,8 +207,31 @@
     background: radial-gradient(circle, rgba(56, 189, 248, 0.14), transparent 70%);
   }
 
-  .sea-creature {
+  .tech-glow-1 {
+    width: 16rem;
+    height: 16rem;
+    right: 22%;
+    top: 4%;
+    background: radial-gradient(circle, rgba(96, 165, 250, 0.2), transparent 72%);
+    animation: pulseGlow 8s ease-in-out infinite;
+  }
+
+  .tech-glow-2 {
+    width: 14rem;
+    height: 10rem;
+    left: 18%;
+    bottom: 10%;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.18), transparent 72%);
+    animation: pulseGlow 10s ease-in-out infinite;
+  }
+
+  .sea-creature,
+  .amr,
+  .shisa {
     position: absolute;
+  }
+
+  .sea-creature {
     color: rgb(125 211 252);
     filter: blur(0.2px);
   }
@@ -150,19 +261,46 @@
     animation: mantaFloat2 16s ease-in-out infinite;
   }
 
+  .amr {
+    color: rgb(148 163 184);
+    filter: blur(0.15px);
+  }
+
+  .amr-1 {
+    width: 8.8rem;
+    left: 12%;
+    bottom: 8%;
+    animation: amrDrive1 18s ease-in-out infinite;
+  }
+
+  .amr-2 {
+    width: 7.4rem;
+    right: 16%;
+    bottom: 10%;
+    color: rgb(96 165 250);
+    opacity: 0.8;
+    animation: amrDrive2 20s ease-in-out infinite;
+  }
+
+
+
   @keyframes whaleFloat {
     0% {
       transform: translate3d(0, 0, 0) scale(1);
     }
+
     25% {
       transform: translate3d(-18px, 10px, 0) scale(1.01);
     }
+
     50% {
       transform: translate3d(-36px, -2px, 0) scale(1);
     }
+
     75% {
       transform: translate3d(-20px, -10px, 0) scale(0.995);
     }
+
     100% {
       transform: translate3d(0, 0, 0) scale(1);
     }
@@ -172,9 +310,11 @@
     0% {
       transform: translate3d(0, 0, 0) rotate(-4deg);
     }
+
     50% {
       transform: translate3d(24px, 12px, 0) rotate(3deg);
     }
+
     100% {
       transform: translate3d(0, 0, 0) rotate(-4deg);
     }
@@ -184,11 +324,74 @@
     0% {
       transform: translate3d(0, 0, 0) rotate(3deg);
     }
+
     50% {
       transform: translate3d(-22px, -14px, 0) rotate(-3deg);
     }
+
     100% {
       transform: translate3d(0, 0, 0) rotate(3deg);
+    }
+  }
+
+  @keyframes pulseGlow {
+    0% {
+      transform: scale(1);
+      opacity: 0.1;
+    }
+
+    50% {
+      transform: scale(1.06);
+      opacity: 0.18;
+    }
+
+    100% {
+      transform: scale(1);
+      opacity: 0.1;
+    }
+  }
+
+  @keyframes amrDrive1 {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+
+    25% {
+      transform: translate3d(10px, -2px, 0);
+    }
+
+    50% {
+      transform: translate3d(24px, 0, 0);
+    }
+
+    75% {
+      transform: translate3d(10px, 2px, 0);
+    }
+
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes amrDrive2 {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+
+    25% {
+      transform: translate3d(-8px, 2px, 0);
+    }
+
+    50% {
+      transform: translate3d(-20px, 0, 0);
+    }
+
+    75% {
+      transform: translate3d(-8px, -2px, 0);
+    }
+
+    100% {
+      transform: translate3d(0, 0, 0);
     }
   }
 
@@ -211,12 +414,33 @@
       right: 20%;
       top: 58%;
     }
+
+    .amr-1 {
+      width: 6.5rem;
+      left: 2%;
+      bottom: 5%;
+    }
+
+    .amr-2 {
+      width: 5.8rem;
+      right: 2%;
+      bottom: 7%;
+    }
+
+
+
+ 
+
   }
 
   @media (prefers-reduced-motion: reduce) {
     .whale-shark,
     .manta-1,
-    .manta-2 {
+    .manta-2,
+    .amr-1,
+    .amr-2,
+    .tech-glow-1,
+    .tech-glow-2 {
       animation: none;
     }
   }
