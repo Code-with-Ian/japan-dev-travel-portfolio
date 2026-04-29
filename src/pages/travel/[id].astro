@@ -1,0 +1,66 @@
+---
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+type TravelEntry = CollectionEntry<"travel">;
+
+export async function getStaticPaths() {
+  const travelEntries = (await getCollection("travel")) as TravelEntry[];
+
+  return travelEntries.map((entry: TravelEntry) => ({
+    params: { id: entry.id },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: TravelEntry;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BaseLayout
+  title={`${entry.data.title} | Dev in Japan`}
+  description={entry.data.description}
+>
+  <article class="px-6 py-24">
+    <div class="mx-auto max-w-3xl">
+      <a href="/travel" class="text-sm font-semibold text-sky-300 hover:text-sky-200">
+        ← Back to travel
+      </a>
+
+      <div class="mt-10 h-72 rounded-[2rem] bg-gradient-to-br from-sky-400/20 to-purple-500/20"></div>
+
+      <p class="mt-10 text-sm font-semibold uppercase tracking-[0.3em] text-sky-300">
+        {entry.data.place}
+      </p>
+
+      <h1 class="mt-4 text-4xl font-bold tracking-tight text-white sm:text-6xl">
+        {entry.data.title}
+      </h1>
+
+      <p class="mt-6 text-lg leading-8 text-slate-300">
+        {entry.data.description}
+      </p>
+
+      {
+        entry.data.tags && entry.data.tags.length > 0 && (
+          <div class="mt-8 flex flex-wrap gap-2">
+            {entry.data.tags.map((tag: string) => (
+              <span class="rounded-full border border-sky-300/20 bg-sky-300/10 px-3 py-1 text-xs font-medium text-sky-200">
+                {tag}
+              </span>
+            ))}
+          </div>
+        )
+      }
+
+      <div class="mt-12 space-y-6 border-t border-white/10 pt-10 text-lg leading-8 text-slate-300">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>

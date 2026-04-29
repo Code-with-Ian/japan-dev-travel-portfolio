@@ -1,0 +1,42 @@
+---
+interface Props {
+  title: string;
+  place: string;
+  description: string;
+  href: string;
+  tags?: string[];
+}
+
+const { title, place, description, href, tags = [] } = Astro.props;
+---
+
+<a
+  href={href}
+  class="block rounded-3xl border border-white/10 bg-white/[0.04] p-6 transition hover:-translate-y-1 hover:border-sky-300/50"
+>
+  <div class="mb-5 h-48 rounded-2xl bg-gradient-to-br from-sky-400/20 to-purple-500/20"></div>
+
+  <p class="text-sm font-semibold uppercase tracking-[0.25em] text-sky-300">
+    {place}
+  </p>
+
+  <h2 class="mt-3 text-2xl font-semibold text-white">{title}</h2>
+
+  <p class="mt-3 text-slate-400">{description}</p>
+
+  {
+    tags.length > 0 && (
+      <div class="mt-6 flex flex-wrap gap-2">
+        {tags.map((tag: string) => (
+          <span class="rounded-full border border-sky-300/20 bg-sky-300/10 px-3 py-1 text-xs font-medium text-sky-200">
+            {tag}
+          </span>
+        ))}
+      </div>
+    )
+  }
+
+  <p class="mt-6 text-sm font-semibold text-sky-300">
+    Read story →
+  </p>
+</a>

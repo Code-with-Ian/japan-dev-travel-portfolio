@@ -1,0 +1,33 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  tags: string[];
+  href: string;
+}
+
+const { title, description, tags, href } = Astro.props;
+---
+
+<a
+  href={href}
+  class="block rounded-3xl border border-white/10 bg-white/[0.04] p-6 transition hover:-translate-y-1 hover:border-sky-300/50"
+>
+  <h2 class="text-2xl font-semibold text-white">{title}</h2>
+
+  <p class="mt-3 text-slate-400">{description}</p>
+
+  <div class="mt-6 flex flex-wrap gap-2">
+    {
+      tags.map((tag: string) => (
+        <span class="rounded-full border border-sky-300/20 bg-sky-300/10 px-3 py-1 text-xs font-medium text-sky-200">
+          {tag}
+        </span>
+      ))
+    }
+  </div>
+
+  <p class="mt-6 text-sm font-semibold text-sky-300">
+    Read case study →
+  </p>
+</a>

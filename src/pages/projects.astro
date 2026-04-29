@@ -1,0 +1,49 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+
+type ProjectEntry = CollectionEntry<"projects">;
+
+const projects = (await getCollection("projects")) as ProjectEntry[];
+
+const sortedProjects = [...projects].sort(
+  (a: ProjectEntry, b: ProjectEntry) =>
+    b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<BaseLayout
+  title="Projects | Dev in Japan"
+  description="Selected developer projects and technical case studies."
+>
+  <section class="px-6 py-24">
+    <div class="mx-auto max-w-6xl">
+      <p class="text-sm font-semibold uppercase tracking-[0.3em] text-sky-300">
+        Projects
+      </p>
+
+      <h1 class="mt-4 text-4xl font-bold tracking-tight text-white sm:text-6xl">
+        Things I’ve built.
+      </h1>
+
+      <p class="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+        A collection of selected projects, experiments, and case studies.
+      </p>
+
+      <div class="mt-12 grid gap-6 md:grid-cols-3">
+        {
+          sortedProjects.map((project: ProjectEntry) => (
+            <ProjectCard
+              title={project.data.title}
+              description={project.data.description}
+              tags={project.data.tags}
+              href={`/projects/${project.id}`}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,51 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TravelCard from "../components/TravelCard.astro";
+
+type TravelEntry = CollectionEntry<"travel">;
+
+const travelEntries = (await getCollection("travel")) as TravelEntry[];
+
+const sortedTravelEntries = [...travelEntries].sort(
+  (a: TravelEntry, b: TravelEntry) =>
+    b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<BaseLayout
+  title="Travel | Dev in Japan"
+  description="Travel stories, places, and memories from Japan and beyond."
+>
+  <section class="px-6 py-24">
+    <div class="mx-auto max-w-6xl">
+      <p class="text-sm font-semibold uppercase tracking-[0.3em] text-sky-300">
+        Travel
+      </p>
+
+      <h1 class="mt-4 text-4xl font-bold tracking-tight text-white sm:text-6xl">
+        Places, stories, and small discoveries.
+      </h1>
+
+      <p class="mt-6 max-w-3xl text-lg leading-8 text-slate-300">
+        This section will become a travel journal for my experiences in Japan
+        and beyond — with photos, notes, and recommendations.
+      </p>
+
+      <div class="mt-12 grid gap-6 md:grid-cols-3">
+        {
+          sortedTravelEntries.map((entry: TravelEntry) => (
+            <TravelCard
+              title={entry.data.title}
+              place={entry.data.place}
+              description={entry.data.description}
+              tags={entry.data.tags}
+              href={`/travel/${entry.id}`}
+            />
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

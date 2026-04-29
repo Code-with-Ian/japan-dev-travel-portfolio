@@ -1,0 +1,62 @@
+---
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+type ProjectEntry = CollectionEntry<"projects">;
+
+export async function getStaticPaths() {
+  const projects = (await getCollection("projects")) as ProjectEntry[];
+
+  return projects.map((project: ProjectEntry) => ({
+    params: { id: project.id },
+    props: { project },
+  }));
+}
+
+interface Props {
+  project: ProjectEntry;
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<BaseLayout
+  title={`${project.data.title} | Dev in Japan`}
+  description={project.data.description}
+>
+  <article class="px-6 py-24">
+    <div class="mx-auto max-w-3xl">
+      <a href="/projects" class="text-sm font-semibold text-sky-300 hover:text-sky-200">
+        ← Back to projects
+      </a>
+
+      <p class="mt-10 text-sm font-semibold uppercase tracking-[0.3em] text-sky-300">
+        Project Case Study
+      </p>
+
+      <h1 class="mt-4 text-4xl font-bold tracking-tight text-white sm:text-6xl">
+        {project.data.title}
+      </h1>
+
+      <p class="mt-6 text-lg leading-8 text-slate-300">
+        {project.data.description}
+      </p>
+
+      <div class="mt-8 flex flex-wrap gap-2">
+        {
+          project.data.tags.map((tag: string) => (
+            <span class="rounded-full border border-sky-300/20 bg-sky-300/10 px-3 py-1 text-xs font-medium text-sky-200">
+              {tag}
+            </span>
+          ))
+        }
+      </div>
+
+      <div class="mt-12 space-y-6 border-t border-white/10 pt-10 text-lg leading-8 text-slate-300">
+        <Content />
+      </div>
+    </div>
+  </article>
+</BaseLayout>
