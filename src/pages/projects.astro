@@ -35,12 +35,13 @@ const sortedProjects = [...projects].sort(
       <div class="mt-12 grid gap-6 md:grid-cols-3">
         {
           sortedProjects.map((project: ProjectEntry) => (
-            <ProjectCard
-              title={project.data.title}
-              description={project.data.description}
-              tags={project.data.tags}
-              href={`/projects/${project.id}`}
-            />
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            tags={project.data.tags}
+            href={`/projects/${project.id}`}
+            i18nBaseKey={`content.projects.${project.id}`}
+          />
           ))
         }
       </div>

@@ -1,5 +1,5 @@
 ---
-title: "Okinawa Island Notes"
+title: "Tokyo City Notes"
 titleJa: "東京シティノート"
 place: "Tokyo, Japan"
 placeJa: "東京、日本"
@@ -7,9 +7,9 @@ description: "City lights, cafés, daily routines, and small discoveries around 
 descriptionJa: "東京の街の明かり、カフェ、日常、そして小さな発見をまとめた記録です。"
 date: 2026-04-20
 tags:
-  - Okinawa
+  - Tokyo
   - Japan
-  - Island Life
+  - City Life
 tagsJa:
   - 東京
   - 日本

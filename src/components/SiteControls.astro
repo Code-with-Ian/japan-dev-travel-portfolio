@@ -1,0 +1,324 @@
+<div class="flex items-center gap-2">
+  <button
+    type="button"
+    id="search-open"
+    class="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-2 text-sm text-slate-300 transition hover:border-sky-300 hover:text-sky-300"
+    aria-label="Open search"
+    data-i18n-aria-label="search.placeholder"
+  >
+    <span class="text-base">⌘</span>
+    <span class="hidden sm:inline">K</span>
+  </button>
+
+  <button
+    type="button"
+    id="language-toggle"
+    class="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-2 text-sm text-slate-300 transition hover:border-sky-300 hover:text-sky-300"
+    aria-label="Toggle language"
+  >
+    <span class="text-lg">文</span>
+    <span class="hidden sm:inline" id="language-label">EN</span>
+  </button>
+
+  <button
+    type="button"
+    id="theme-toggle"
+    class="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-2 text-sm text-slate-300 transition hover:border-sky-300 hover:text-sky-300"
+    aria-label="Toggle theme"
+  >
+    <span id="theme-icon">☀︎</span>
+  </button>
+</div>
+
+<div
+  id="search-modal"
+  class="fixed inset-0 z-[100] hidden bg-slate-950/80 px-4 py-24 backdrop-blur"
+>
+  <div class="mx-auto max-w-2xl overflow-hidden rounded-3xl border border-white/10 bg-slate-900 shadow-2xl">
+    <div class="flex items-center gap-3 border-b border-white/10 p-4">
+      <span class="text-slate-400">⌘K</span>
+
+      <input
+        id="search-input"
+        type="search"
+        placeholder="Search projects, travel, experience..."
+        data-i18n-placeholder="search.placeholder"
+        class="w-full bg-transparent text-white outline-none placeholder:text-slate-500"
+      />
+
+      <button
+        id="search-close"
+        type="button"
+        class="rounded-full px-3 py-1 text-sm text-slate-400 hover:text-white"
+      >
+        Esc
+      </button>
+    </div>
+
+    <div id="search-results" class="max-h-[28rem] overflow-y-auto p-3">
+      <p class="p-4 text-sm text-slate-400" data-i18n="search.empty">
+        Start typing to search your portfolio.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  import i18next from "i18next";
+  import en from "../locales/en.json";
+  import ja from "../locales/ja.json";
+
+  const html = document.documentElement;
+  const searchOpen = document.getElementById("search-open");
+  const searchClose = document.getElementById("search-close");
+  const searchModal = document.getElementById("search-modal");
+  const searchInput = document.getElementById("search-input") as HTMLInputElement | null;
+  const searchResults = document.getElementById("search-results");
+  const languageToggle = document.getElementById("language-toggle");
+  const languageLabel = document.getElementById("language-label");
+  const themeToggle = document.getElementById("theme-toggle");
+  const themeIcon = document.getElementById("theme-icon");
+
+  type SearchItem = {
+    titleKey: string;
+    descriptionKey: string;
+    typeKey: string;
+    href: string;
+    tagsKeys?: string[];
+    fallbackTitle: string;
+    fallbackDescription: string;
+    fallbackType: string;
+    fallbackTags?: string[];
+  };
+
+  let searchItems: SearchItem[] = [];
+
+  function escapeHTML(value: string) {
+    return value
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function t(key: string, fallback = "") {
+    return i18next.t(key, { defaultValue: fallback });
+  }
+
+  function tIn(language: string, key: string, fallback = "") {
+    return i18next.getFixedT(language)(key, { defaultValue: fallback });
+  }
+
+  function applyTranslations() {
+    document.querySelectorAll<HTMLElement>("[data-i18n]").forEach((element) => {
+      const key = element.dataset.i18n;
+      if (!key) return;
+
+      element.textContent = t(key, element.textContent || "");
+    });
+
+    document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>(
+      "[data-i18n-placeholder]"
+    ).forEach((element) => {
+      const key = element.dataset.i18nPlaceholder;
+      if (!key) return;
+
+      element.placeholder = t(key, element.placeholder || "");
+    });
+
+    document.querySelectorAll<HTMLElement>("[data-i18n-aria-label]").forEach((element) => {
+      const key = element.dataset.i18nAriaLabel;
+      if (!key) return;
+
+      element.setAttribute("aria-label", t(key, element.getAttribute("aria-label") || ""));
+    });
+  }
+
+  function getLanguage() {
+    return localStorage.getItem("language") || "en";
+  }
+
+  function applyTheme(theme: string) {
+    html.classList.toggle("light", theme === "light");
+
+    if (themeIcon) {
+      themeIcon.textContent = theme === "light" ? "☾" : "☀︎";
+    }
+
+    localStorage.setItem("theme", theme);
+  }
+
+  async function applyLanguage(language: string) {
+    await i18next.changeLanguage(language);
+
+    html.dataset.lang = language;
+    html.lang = language === "ja" ? "ja" : "en";
+    localStorage.setItem("language", language);
+
+    if (languageLabel) {
+      languageLabel.textContent = language === "ja" ? "JP" : "EN";
+    }
+
+    applyTranslations();
+    renderResults(searchInput?.value || "");
+  }
+
+  function openSearch() {
+    searchModal?.classList.remove("hidden");
+    searchInput?.focus();
+  }
+
+  function closeSearch() {
+    searchModal?.classList.add("hidden");
+
+    if (searchInput) {
+      searchInput.value = "";
+    }
+
+    renderResults("");
+  }
+
+  function renderResults(query: string) {
+    if (!searchResults) return;
+
+    const currentLanguage = getLanguage();
+    const normalizedQuery = query.trim().toLowerCase();
+
+    if (!normalizedQuery) {
+      searchResults.innerHTML = `
+        <p class="p-4 text-sm text-slate-400">
+          ${escapeHTML(t("search.empty"))}
+        </p>
+      `;
+      return;
+    }
+
+    const matches = searchItems
+      .filter((item) => {
+        const englishText = [
+          tIn("en", item.titleKey, item.fallbackTitle),
+          tIn("en", item.descriptionKey, item.fallbackDescription),
+          tIn("en", item.typeKey, item.fallbackType),
+          ...(item.tagsKeys || []).map((key, index) =>
+            tIn("en", key, item.fallbackTags?.[index] || "")
+          ),
+        ].join(" ");
+
+        const japaneseText = [
+          tIn("ja", item.titleKey, item.fallbackTitle),
+          tIn("ja", item.descriptionKey, item.fallbackDescription),
+          tIn("ja", item.typeKey, item.fallbackType),
+          ...(item.tagsKeys || []).map((key, index) =>
+            tIn("ja", key, item.fallbackTags?.[index] || "")
+          ),
+        ].join(" ");
+
+        return `${englishText} ${japaneseText}`.toLowerCase().includes(normalizedQuery);
+      })
+      .slice(0, 8);
+
+    if (matches.length === 0) {
+      searchResults.innerHTML = `
+        <p class="p-4 text-sm text-slate-400">
+          ${escapeHTML(t("search.noResults"))}
+        </p>
+      `;
+      return;
+    }
+
+    searchResults.innerHTML = matches
+      .map((item) => {
+        const title = t(item.titleKey, item.fallbackTitle);
+        const description = t(item.descriptionKey, item.fallbackDescription);
+        const type = t(item.typeKey, item.fallbackType);
+
+        return `
+          <a
+            href="${escapeHTML(item.href)}"
+            class="block rounded-2xl p-4 transition hover:bg-white/5"
+          >
+            <div class="flex items-center justify-between gap-4">
+              <h3 class="font-semibold text-white">${escapeHTML(title)}</h3>
+              <span class="rounded-full border border-sky-300/20 bg-sky-300/10 px-2 py-1 text-xs text-sky-200">
+                ${escapeHTML(type)}
+              </span>
+            </div>
+            <p class="mt-2 text-sm text-slate-400">${escapeHTML(description)}</p>
+          </a>
+        `;
+      })
+      .join("");
+  }
+
+  async function loadSearchItems() {
+    try {
+      const response = await fetch("/search.json");
+      searchItems = await response.json();
+    } catch {
+      searchItems = [];
+    }
+  }
+
+  async function init() {
+    applyTheme(localStorage.getItem("theme") || "dark");
+
+    await i18next.init({
+      lng: getLanguage(),
+      fallbackLng: "en",
+      resources: {
+        en: {
+          translation: en,
+        },
+        ja: {
+          translation: ja,
+        },
+      },
+      interpolation: {
+        escapeValue: false,
+      },
+    });
+
+    await applyLanguage(getLanguage());
+    await loadSearchItems();
+  }
+
+  searchOpen?.addEventListener("click", openSearch);
+  searchClose?.addEventListener("click", closeSearch);
+
+  searchInput?.addEventListener("input", (event) => {
+    renderResults((event.target as HTMLInputElement).value);
+  });
+
+  languageToggle?.addEventListener("click", async () => {
+    const currentLanguage = getLanguage();
+    await applyLanguage(currentLanguage === "en" ? "ja" : "en");
+  });
+
+  themeToggle?.addEventListener("click", () => {
+    const isLight = html.classList.contains("light");
+    applyTheme(isLight ? "dark" : "light");
+  });
+
+  document.addEventListener("keydown", (event) => {
+    const isSearchShortcut =
+      (event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k";
+
+    if (isSearchShortcut) {
+      event.preventDefault();
+      openSearch();
+    }
+
+    if (event.key === "Escape") {
+      closeSearch();
+    }
+  });
+
+  searchModal?.addEventListener("click", (event) => {
+    if (event.target === searchModal) {
+      closeSearch();
+    }
+  });
+
+  init();
+</script>

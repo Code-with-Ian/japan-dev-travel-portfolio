@@ -1,0 +1,125 @@
+{
+  "nav": {
+    "home": "Home",
+    "experience": "Experience",
+    "projects": "Projects",
+    "travel": "Travel",
+    "contact": "Contact",
+    "connect": "Let’s connect"
+  },
+  "home": {
+    "eyebrow": "Okinawa, Japan-based Software Developer | IoT & Robotics Enthusiast | DX Evangelist",
+    "hero": {
+      "title": "Building digital products and collecting stories across Japan.",
+      "description": "I’m a developer based in Okinawa, Japan. I share my development experiences and document my travels along the way. I hope this site will be helpful for other developers and travelers who are interested in Japan. Feel free to reach out if you want to connect or collaborate on projects!",
+      "viewProjects": "View Projects",
+      "exploreTravel": "Explore Travels"
+    },
+    "focus": {
+      "kicker": "Current Focus",
+      "developerTitle": "Developer Experience",
+      "developerDescription": "Projects, technical decisions, lessons learned, and practical software engineering notes.",
+      "japanTitle": "Life in Japan",
+      "japanDescription": "Professional growth, work culture, daily routines, and observations from living in Japan.",
+      "travelTitle": "Travel Stories",
+      "travelDescription": "Places, photos, memories, and small discoveries from Japan and beyond."
+    },
+    "stats": {
+      "baseValue": "Okinawa",
+      "baseLabel": "Current base",
+      "focusValue": "Web",
+      "focusLabel": "Main development focus",
+      "platformValue": "AWS",
+      "platformLabel": "Deployment platform"
+    },
+    "featured": {
+      "kicker": "Featured Work",
+      "title": "Selected projects",
+      "viewAll": "View all projects →"
+    },
+    "journal": {
+      "kicker": "Travel Journal",
+      "title": "Recent stories",
+      "viewAll": "View all travel stories →"
+    },
+    "cta": {
+      "kicker": "Let’s Connect",
+      "title": "Want to collaborate or talk about development in Japan?",
+      "description": "I’m open to developer opportunities, collaborations, and conversations about web development, Japan life, and travel.",
+      "button": "Contact Me"
+    }
+  },
+  "experience": {
+    "kicker": "Experience",
+    "title": "My developer journey in Japan.",
+    "description": "This section will showcase my professional background, technical skills, work experience, and lessons learned while building software in Japan.",
+    "skillsTitle": "Technical Skills",
+    "skillsDescription": "Frontend development, backend systems, cloud deployment, performance, clean UI, and practical engineering.",
+    "japanTitle": "Japan Experience",
+    "japanDescription": "Work culture, communication, teamwork, problem solving, and adapting as a developer in Japan."
+  },
+  "projects": {
+    "kicker": "Projects",
+    "title": "Things I’ve built.",
+    "description": "A collection of selected projects, experiments, and case studies.",
+    "readCaseStudy": "Read case study →"
+  },
+  "travel": {
+    "kicker": "Travel",
+    "title": "Places, stories, and small discoveries.",
+    "description": "This section will become a travel journal for my experiences in Japan and beyond — with photos, notes, and recommendations.",
+    "readStory": "Read story →"
+  },
+  "contact": {
+    "kicker": "Contact",
+    "title": "Let’s connect.",
+    "description": "I’m open to developer opportunities, collaborations, and conversations about web development, Japan, and travel.",
+    "emailLabel": "Email me at:"
+  },
+  "footer": {
+    "built": "Built with Astro and deployed on AWS Amplify.",
+    "contact": "Contact"
+  },
+  "search": {
+    "placeholder": "Search projects, travel, experience...",
+    "empty": "Start typing to search your portfolio.",
+    "noResults": "No results found.",
+    "types": {
+      "page": "Page",
+      "project": "Project",
+      "travel": "Travel"
+    }
+  },
+  "content": {
+    "projects": {
+      "portfolio-website": {
+        "title": "Portfolio Website",
+        "description": "A fast personal portfolio built with Astro, Tailwind CSS, and AWS Amplify Hosting.",
+        "tags": ["Astro", "Tailwind CSS", "AWS Amplify"],
+        "body": "This portfolio showcases my developer journey in Japan, selected projects, and travel stories. The goal is to keep the site fast, clean, and easy to update over time."
+      },
+      "developer-tool": {
+        "title": "Developer Tool",
+        "description": "A future case study for a tool, app, or system I have built.",
+        "tags": ["TypeScript", "API", "Performance"],
+        "body": "This is a placeholder project entry. Later, I can replace this with a real project, including screenshots, technical decisions, challenges, and results."
+      }
+    },
+    "travel": {
+      "tokyo-city-notes": {
+        "title": "Tokyo City Notes",
+        "place": "Tokyo, Japan",
+        "description": "City lights, cafés, daily routines, and small discoveries around Tokyo.",
+        "tags": ["Tokyo", "Japan", "City Life"],
+        "body": "Tokyo has a way of mixing energy and calm in the same day. This post will become a travel story with photos, favorite places, and personal notes."
+      },
+      "kyoto-autumn-walk": {
+        "title": "Kyoto Autumn Walk",
+        "place": "Kyoto, Japan",
+        "description": "Temples, quiet streets, autumn colors, and slower travel moments.",
+        "tags": ["Kyoto", "Autumn", "Travel"],
+        "body": "Kyoto is perfect for slower travel. This post can later include photos, route notes, food spots, and reflections."
+      }
+    }
+  }
+}

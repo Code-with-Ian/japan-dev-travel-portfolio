@@ -1,1 +1,92 @@
 @import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+}
+
+:root.light {
+  color-scheme: light;
+}
+
+:root.light body {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+:root.light .bg-slate-950 {
+  background-color: #f8fafc !important;
+}
+
+:root.light .bg-slate-950\/80 {
+  background-color: rgba(248, 250, 252, 0.95) !important;
+}
+
+:root.light .bg-slate-900,
+:root.light .bg-slate-900\/90 {
+  background-color: rgba(255, 255, 255, 0.94) !important;
+}
+
+:root.light [class*="bg-white/"],
+:root.light [class*="bg-white\\["] {
+  background-color: rgba(255, 255, 255, 0.86) !important;
+}
+
+:root.light [class*="border-white/"] {
+  border-color: rgba(15, 23, 42, 0.14) !important;
+}
+
+:root.light .text-white {
+  color: #0f172a !important;
+}
+
+:root.light .text-slate-200,
+:root.light .text-slate-300 {
+  color: #334155 !important;
+}
+
+:root.light .text-slate-400 {
+  color: #475569 !important;
+}
+
+:root.light .text-slate-500 {
+  color: #64748b !important;
+}
+
+:root.light .text-sky-300,
+:root.light .text-sky-200 {
+  color: #0369a1 !important;
+}
+
+:root.light .bg-sky-300 {
+  background-color: #0369a1 !important;
+}
+
+:root.light a.bg-sky-300,
+:root.light button.bg-sky-300 {
+  color: #ffffff !important;
+}
+
+:root.light .hover\:bg-sky-200:hover {
+  background-color: #075985 !important;
+}
+
+:root.light .shadow-sky-950\/40 {
+  box-shadow: 0 25px 50px -12px rgba(14, 116, 144, 0.18) !important;
+}
+
+:root.light #search-modal {
+  background-color: rgba(248, 250, 252, 0.88) !important;
+}
+
+:root.light #search-modal > div {
+  background-color: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.14) !important;
+}
+
+:root.light #search-input {
+  color: #0f172a !important;
+}
+
+:root.light #search-results a:hover {
+  background-color: rgba(14, 165, 233, 0.08) !important;
+}

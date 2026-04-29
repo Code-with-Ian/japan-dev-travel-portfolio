@@ -21,6 +21,21 @@ const {
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <script is:inline>
+      (() => {
+        const theme = localStorage.getItem("theme") || "dark";
+        const language = localStorage.getItem("language") || "en";
+
+        if (theme === "light") {
+          document.documentElement.classList.add("light");
+        }
+
+        document.documentElement.dataset.lang = language;
+        document.documentElement.lang = language === "ja" ? "ja" : "en";
+      })();
+    </script>
+
     <title>{title}</title>
   </head>
 

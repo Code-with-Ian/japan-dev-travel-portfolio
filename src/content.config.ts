@@ -9,9 +9,12 @@ const projects = defineCollection({
   }),
   schema: z.object({
     title: z.string(),
+    titleJa: z.string().optional(),
     description: z.string(),
+    descriptionJa: z.string().optional(),
     date: z.coerce.date(),
     tags: z.array(z.string()),
+    tagsJa: z.array(z.string()).optional(),
     featured: z.boolean().optional(),
   }),
 });
@@ -23,10 +26,14 @@ const travel = defineCollection({
   }),
   schema: z.object({
     title: z.string(),
+    titleJa: z.string().optional(),
     place: z.string(),
+    placeJa: z.string().optional(),
     description: z.string(),
+    descriptionJa: z.string().optional(),
     date: z.coerce.date(),
     tags: z.array(z.string()).optional(),
+    tagsJa: z.array(z.string()).optional(),
   }),
 });
 

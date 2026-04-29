@@ -42,6 +42,7 @@ const sortedTravelEntries = [...travelEntries].sort(
               description={entry.data.description}
               tags={entry.data.tags}
               href={`/travel/${entry.id}`}
+              i18nBaseKey={`content.travel.${entry.id}`}
             />
           ))
         }
