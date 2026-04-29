@@ -6,7 +6,7 @@ export type SocialLink = {
 export const site = {
   name: "Ian",
   brand: "Code-With-Ian",
-  role: "Software Developer | DX Evangelist | IoT Robotics Enthusiast",
+  role: "Software Developer | IoT & Robotics Enthusiast  | DX Evangelist",
   location: "Okinawa,Japan",
   email: "engrianbautista100496@gmail.com",
   github: "https://github.com/Code-with-Ian",

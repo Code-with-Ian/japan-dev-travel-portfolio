@@ -1,0 +1,223 @@
+<div class="okinawa-vibes" aria-hidden="true">
+  <div class="island-glow island-glow-1"></div>
+  <div class="island-glow island-glow-2"></div>
+
+  <svg
+    class="sea-creature whale-shark"
+    viewBox="0 0 320 140"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M40 70
+         C75 30, 170 25, 235 48
+         C255 55, 275 60, 292 57
+         C283 68, 283 72, 292 83
+         C275 80, 255 85, 235 92
+         C170 115, 75 110, 40 70Z"
+      fill="currentColor"
+      opacity="0.18"
+    />
+    <path
+      d="M292 57
+         L315 40
+         L308 62
+         L319 70
+         L308 78
+         L315 100
+         L292 83
+         C283 72, 283 68, 292 57Z"
+      fill="currentColor"
+      opacity="0.18"
+    />
+    <path
+      d="M145 86
+         C160 108, 182 110, 190 98
+         C176 94, 166 88, 155 76Z"
+      fill="currentColor"
+      opacity="0.16"
+    />
+    <path
+      d="M155 49
+         C165 25, 186 22, 200 42
+         C187 43, 172 45, 155 49Z"
+      fill="currentColor"
+      opacity="0.16"
+    />
+  </svg>
+
+  <svg
+    class="sea-creature manta manta-1"
+    viewBox="0 0 220 120"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M20 60
+         C40 25, 72 15, 108 42
+         C145 15, 178 25, 198 60
+         C174 53, 145 58, 118 68
+         L113 102
+         L103 102
+         L98 68
+         C72 58, 44 53, 20 60Z"
+      fill="currentColor"
+      opacity="0.16"
+    />
+  </svg>
+
+  <svg
+    class="sea-creature manta manta-2"
+    viewBox="0 0 220 120"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M20 60
+         C40 25, 72 15, 108 42
+         C145 15, 178 25, 198 60
+         C174 53, 145 58, 118 68
+         L113 102
+         L103 102
+         L98 68
+         C72 58, 44 53, 20 60Z"
+      fill="currentColor"
+      opacity="0.13"
+    />
+  </svg>
+</div>
+
+<style>
+  .okinawa-vibes {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .island-glow {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(40px);
+    opacity: 0.22;
+  }
+
+  .island-glow-1 {
+    width: 28rem;
+    height: 12rem;
+    right: -4rem;
+    bottom: 2rem;
+    background: radial-gradient(circle, rgba(45, 212, 191, 0.22), transparent 70%);
+  }
+
+  .island-glow-2 {
+    width: 18rem;
+    height: 8rem;
+    left: 8%;
+    bottom: 4rem;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.14), transparent 70%);
+  }
+
+  .sea-creature {
+    position: absolute;
+    color: rgb(125 211 252);
+    filter: blur(0.2px);
+  }
+
+  .whale-shark {
+    width: 18rem;
+    right: 10%;
+    top: 18%;
+    animation: whaleFloat 18s ease-in-out infinite;
+  }
+
+  .manta {
+    width: 10rem;
+    color: rgb(103 232 249);
+  }
+
+  .manta-1 {
+    left: 8%;
+    top: 22%;
+    animation: mantaFloat1 14s ease-in-out infinite;
+  }
+
+  .manta-2 {
+    right: 28%;
+    top: 52%;
+    width: 8rem;
+    animation: mantaFloat2 16s ease-in-out infinite;
+  }
+
+  @keyframes whaleFloat {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    25% {
+      transform: translate3d(-18px, 10px, 0) scale(1.01);
+    }
+    50% {
+      transform: translate3d(-36px, -2px, 0) scale(1);
+    }
+    75% {
+      transform: translate3d(-20px, -10px, 0) scale(0.995);
+    }
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes mantaFloat1 {
+    0% {
+      transform: translate3d(0, 0, 0) rotate(-4deg);
+    }
+    50% {
+      transform: translate3d(24px, 12px, 0) rotate(3deg);
+    }
+    100% {
+      transform: translate3d(0, 0, 0) rotate(-4deg);
+    }
+  }
+
+  @keyframes mantaFloat2 {
+    0% {
+      transform: translate3d(0, 0, 0) rotate(3deg);
+    }
+    50% {
+      transform: translate3d(-22px, -14px, 0) rotate(-3deg);
+    }
+    100% {
+      transform: translate3d(0, 0, 0) rotate(3deg);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .whale-shark {
+      width: 13rem;
+      right: 2%;
+      top: 16%;
+      opacity: 0.85;
+    }
+
+    .manta-1 {
+      width: 7rem;
+      left: 0%;
+      top: 18%;
+    }
+
+    .manta-2 {
+      width: 6rem;
+      right: 20%;
+      top: 58%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .whale-shark,
+    .manta-1,
+    .manta-2 {
+      animation: none;
+    }
+  }
+</style>
